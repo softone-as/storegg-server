@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 let categorySchema = mongoose.Schema({
     name: {
         type: String,
-        require: [true, 'Category name should be assigned value!'],
+        required: [true, 'Category name should be assigned value!'],
     },
 });
 
