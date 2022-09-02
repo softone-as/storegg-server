@@ -63,11 +63,14 @@ module.exports = {
             const { id } = req.params;
             const { coinQuantity, coinName, price } = req.body;
 
-            await Nominal.findOneAndUpdate(id, {
-                coinQuantity,
-                coinName,
-                price,
-            });
+            await Nominal.findOneAndUpdate(
+                { _id: id },
+                {
+                    coinQuantity,
+                    coinName,
+                    price,
+                }
+            );
 
             req.flash('alertMessage', 'Nominal has been updated!');
             req.flash('alertStatus', 'success');

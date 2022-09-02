@@ -63,7 +63,7 @@ module.exports = {
             const { id } = req.params;
             const { name } = req.body;
 
-            await Category.findOneAndUpdate(id, { name });
+            await Category.findOneAndUpdate({ _id: id }, { name });
 
             req.flash('alertMessage', 'Category has been updated!');
             req.flash('alertStatus', 'success');
