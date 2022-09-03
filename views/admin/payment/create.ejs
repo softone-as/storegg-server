@@ -7,15 +7,15 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Category</h1>
+                    <h1>Payment</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
                         <li class="breadcrumb-item">
-                            <a href="/category">Category</a>
+                            <a href="/payment">Payment</a>
                         </li>
-                        <li class="breadcrumb-item active">Edit</li>
+                        <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div>
             </div>
@@ -30,27 +30,41 @@
                 <div class="col-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">
-                                Form Update Category <%= category.name %>
-                            </h3>
+                            <h3 class="card-title">Form Add Payment</h3>
                         </div>
-                        <!-- /.card-header -->
                         <!-- form start -->
-                        <form
-                            action="/category/edit/<%= category._id %>?_method=PUT"
-                            method="POST"
-                        >
+                        <form action="/payment/create" method="POST">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="name">Category Name</label>
+                                    <label for="type">Type</label>
                                     <input
                                         type="text"
                                         class="form-control"
-                                        id="name"
-                                        name="name"
-                                        placeholder="Enter category"
-                                        value="<%= category.name %>"
+                                        id="type"
+                                        name="type"
+                                        placeholder="Enter type"
                                     />
+                                </div>
+                                <div class="form-group">
+                                    <label>Bank</label>
+                                    <div class="select2-purple">
+                                        <select
+                                            class="form-control select2"
+                                            multiple="multiple"
+                                            style="width: 100%"
+                                            name="banks"
+                                            data-placeholder="Choose Bank"
+                                            required
+                                        >
+                                            <% banks.forEach(bank => { %>
+                                            <option value="<%= bank._id %>">
+                                                <%= bank.name %> | <%=
+                                                bank.username %> | <%=
+                                                bank.accountNumber %>
+                                            </option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <!-- /.card-body -->
