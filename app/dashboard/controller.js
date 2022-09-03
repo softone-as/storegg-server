@@ -1,7 +1,8 @@
 module.exports = {
     index: async (req, res) => {
         try {
-            res.render('index', { title: 'Bro' });
+            const { name } = req.session.user;
+            res.render('index', { username: name, title: 'Dashboard' });
         } catch (error) {
             console.log(error);
         }
