@@ -10,13 +10,18 @@ module.exports = {
         try {
             const alertMessage = req.flash('alertMessage');
             const alertStatus = req.flash('alertStatus');
-
             const alert = { message: alertMessage, status: alertStatus };
             const voucher = await Voucher.find()
                 .populate('category')
                 .populate('nominals');
+            const { name } = req.session.user;
 
-            res.render('admin/voucher/view_voucher', { voucher, alert });
+            res.render('admin/voucher/view_voucher', {
+                voucher,
+                alert,
+                username: name,
+                title: 'Voucher',
+            });
         } catch (error) {
             req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
@@ -28,7 +33,14 @@ module.exports = {
         try {
             const category = await Category.find();
             const nominal = await Nominal.find();
-            res.render('admin/voucher/create', { category, nominal });
+            const { name } = req.session.user;
+
+            res.render('admin/voucher/create', {
+                category,
+                nominal,
+                username: name,
+                title: 'Voucher',
+            });
         } catch (error) {
             req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
@@ -107,8 +119,15 @@ module.exports = {
                 .populate('nominals');
             const category = await Category.find();
             const nominal = await Nominal.find();
+            const { name } = req.session.user;
 
-            res.render('admin/voucher/edit', { voucher, category, nominal });
+            res.render('admin/voucher/edit', {
+                voucher,
+                category,
+                nominal,
+                username: name,
+                title: 'Voucher',
+            });
         } catch (error) {
             req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
