@@ -73,7 +73,7 @@ module.exports = {
             const player = await Player.findOne({ email });
 
             if (player) {
-                const checkPassword = await bcrypt.compareSync(
+                const checkPassword = bcrypt.compareSync(
                     password,
                     player.password
                 );
