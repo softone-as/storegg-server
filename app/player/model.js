@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+
+const HASH_ROUND = 10;
 
 let playerSchema = mongoose.Schema(
     {
@@ -47,5 +50,24 @@ let playerSchema = mongoose.Schema(
     },
     { timestamps: true }
 );
+
+playerSchema.path('email').validate(
+    async function (email) {
+        try {
+            const isRegistered = await this.model('Player').countDocuments({
+                email,
+            });
+            return !isRegistered;
+        } catch (error) {
+            throw error;
+        }
+    },
+    (attr) => `${attr.value} has registered!`
+);
+
+playerSchema.pre('save', function (next) {
+    this.password = bcrypt.hashSync(this.password, HASH_ROUND);
+    next();
+});
 
 module.exports = mongoose.model('Player', playerSchema);
